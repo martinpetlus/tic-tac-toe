@@ -1,7 +1,8 @@
 import {
   CHANGE_GAME_TYPE,
   JOIN_SESSION_SUCCESS,
-  OPPONENT_JOINED
+  OPPONENT_JOINED,
+  OPPONENT_DISCONNECTED
 } from '../constants/ActionTypes'
 import { NEW } from '../constants/GameTypes'
 import uid from 'uid'
@@ -28,6 +29,12 @@ export default function sessionReducer(state = initialState, action) {
       return {
         ...state,
         type: action.payload
+      }
+    case OPPONENT_DISCONNECTED:
+      return {
+        ...state,
+        id: null,
+        ready: false,
       }
     default:
       return state

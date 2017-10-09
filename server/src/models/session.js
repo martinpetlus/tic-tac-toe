@@ -25,3 +25,14 @@ module.exports.getOpponent = (id, socket) => {
 
   return socket.id === initiator.id ? session.getOpponent() : initiator;
 };
+
+module.exports.remove = (id, socket) => {
+  const initiator = sessions.get(id).getInitiator();
+  const isInitiator = initiator.id === socket.id;
+
+  if (isInitiator) {
+    sessions.delete(id);
+  } else {
+    sessions.get(id).clear();
+  }
+};

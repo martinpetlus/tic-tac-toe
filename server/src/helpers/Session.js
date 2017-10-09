@@ -10,6 +10,10 @@ module.exports = class Session {
     this.opponent = opponent;
   }
 
+  clear() {
+    this.opponent = null;
+  }
+
   isOccupied() {
     return !!this.opponent;
   }
