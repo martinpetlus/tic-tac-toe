@@ -1,28 +1,14 @@
 module.exports = class Session {
-  constructor(sessionId, initiator) {
-    if (!initiator) throw new Error('Initiator must be provided.');
-
-    this.sessionId = sessionId;
+  constructor(initiator, opponent) {
     this.initiator = initiator;
-  }
-
-  join(opponent) {
     this.opponent = opponent;
   }
 
-  clear() {
-    this.opponent = null;
-  }
+  getOpponent(socket) {
+    if (this.initiator.id === socket.id) {
+      return this.opponent;
+    }
 
-  isOccupied() {
-    return !!this.opponent;
-  }
-
-  getInitiator() {
     return this.initiator;
-  }
-
-  getOpponent() {
-    return this.opponent;
   }
 };

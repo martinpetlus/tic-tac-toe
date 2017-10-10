@@ -5,32 +5,20 @@ const {
 const { NEW, JOIN } = require('client/constants/GameTypes');
 const Session = require('../models/session');
 
-const sessionIdBySocket = new WeakMap();
-
 module.exports = (socket) => {
   socket.on('disconnect', () => {
-    const sessionId = sessionIdBySocket.get(socket);
-
-    if (sessionId) {
-      const opponent = Session.getOpponent(sessionId, socket);
-
+    Session.remove(socket, (error, { opponent }) => {
       if (opponent) {
         opponent.emit('actions', { type: OPPONENT_DISCONNECTED });
       }
-
-      Session.remove(sessionId, socket);
-    }
+    });
   });
 
   socket.on(NEW, (id) => {
-    sessionIdBySocket.set(socket, id);
-
     Session.new(id, socket);
   });
 
   socket.on(JOIN, (id, cb) => {
-    sessionIdBySocket.set(socket, id);
-
     Session.join(id, socket, (error, { initiator } = {}) => {
       if (error) cb({ error });
       else {
