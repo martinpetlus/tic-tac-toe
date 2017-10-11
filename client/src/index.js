@@ -12,7 +12,7 @@ const socket = io('http://localhost:3001')
 
 const store = configureStore(socket)
 
-socket.on('actions', action => store.dispatch(action))
+socket.on('action', action => store.dispatch(action))
 
 render(
   <Provider {...{ store }}>

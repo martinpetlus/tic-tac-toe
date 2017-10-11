@@ -9,7 +9,7 @@ module.exports = (socket) => {
   socket.on('disconnect', () => {
     Session.remove(socket, (error, { opponent }) => {
       if (opponent) {
-        opponent.emit('actions', { type: OPPONENT_DISCONNECTED });
+        opponent.emit('action', { type: OPPONENT_DISCONNECTED });
       }
     });
   });
@@ -23,7 +23,7 @@ module.exports = (socket) => {
       if (error) cb({ error });
       else {
         cb({});
-        initiator.emit('actions', { type: OPPONENT_JOINED, payload: id });
+        initiator.emit('action', { type: OPPONENT_JOINED, payload: id });
       }
     });
   });
