@@ -2,6 +2,7 @@ import cloneDeep from 'lodash.clonedeep'
 
 import { X, O } from '../constants/Marks'
 import createEmptyBoard from '../utils/createEmptyBoard'
+import checkGameStatus from '../utils/checkGameStatus'
 import {
   MARK_POSITION,
   RESTART_GAME,
@@ -13,8 +14,10 @@ const SIZE = 3
 
 const initialState = {
   myMark: X,
+  opponentMark: O,
   myTurn: false,
-  board: createEmptyBoard(SIZE)
+  board: createEmptyBoard(SIZE),
+  status: undefined
 }
 
 export default function ticTacToeReducer(state = initialState, action) {
@@ -29,7 +32,8 @@ export default function ticTacToeReducer(state = initialState, action) {
     case JOIN_SESSION_SUCCESS:
       return {
         ...state,
-        myMark: O
+        myMark: O,
+        opponentMark: X
       }
     case MARK_POSITION: {
       const { row, col, mark } = payload
@@ -40,7 +44,8 @@ export default function ticTacToeReducer(state = initialState, action) {
       return {
         ...state,
         myTurn: mark !== state.myMark,
-        board: clonedBoard
+        board: clonedBoard,
+        status: checkGameStatus(clonedBoard, state.myMark, state.opponentMark)
       }
     }
     case RESTART_GAME:

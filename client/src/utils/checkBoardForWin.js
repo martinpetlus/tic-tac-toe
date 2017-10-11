@@ -24,13 +24,15 @@ function getDiagonals(board) {
   return result
 }
 
-function checkPositionsForWin(positions) {
-  return positions.every(
-    position => position.mark && position.mark === positions[0].mark
-  )
-}
+export default function checkBoardForWin(board, targetMark) {
+  function checkPositionsForWin(positions) {
+    return positions.every(position => (
+      position.mark &&
+      positions[0].mark === targetMark &&
+      positions[0].mark === position.mark
+    ))
+  }
 
-export default function checkBoardForWin(board) {
   const winInRow = getRows(board).some(checkPositionsForWin)
   const winInColumn = !winInRow && getColumns(board).some(checkPositionsForWin)
   const winInDiagonal = (

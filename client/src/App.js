@@ -5,6 +5,7 @@ import { bindActionCreators } from 'redux'
 
 import TicTacToe from './containers/TicTacToe'
 import Intro from './containers/Intro'
+import GameEnd from './containers/GameEnd'
 import Header from './components/Header'
 import Button from './components/Button'
 import EditableName from './components/EditableName'
@@ -62,7 +63,9 @@ class App extends Component {
             }
           </Header>
           <Intro>
-            <TicTacToe />
+            <GameEnd>
+              <TicTacToe />
+            </GameEnd>
           </Intro>
         </Wrapper>
       </ThemeProvider>
