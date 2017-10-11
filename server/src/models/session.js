@@ -42,3 +42,6 @@ module.exports.remove = (socket, cb) => {
 
   cb(null, { opponent });
 };
+
+module.exports.opponent = (id, socket) =>
+  existingSessions.get(socket).getOpponent(socket);

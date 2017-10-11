@@ -3,7 +3,7 @@ const Session = require('../models/session');
 
 module.exports = (socket) => {
   socket.on(MARK_POSITION, (id, args) => {
-    Session.getOpponent(id, socket).emit(
+    Session.opponent(id, socket).emit(
       'actions',
       { type: MARK_POSITION, payload: args },
     );
