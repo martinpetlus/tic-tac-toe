@@ -51,6 +51,8 @@ export default function ticTacToeReducer(state = initialState, action) {
     case RESTART_GAME:
       return {
         ...state,
+        status: undefined,
+        myTurn: state.myMark === X,
         board: createEmptyBoard(SIZE)
       }
     default:

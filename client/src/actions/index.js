@@ -10,18 +10,17 @@ import { NEW, JOIN } from '../constants/GameTypes'
 
 export function markPosition(args) {
   return (dispatch, getState, { socket }) => {
-    socket.emit(MARK_POSITION, getState().session.id, args)
-
-    dispatch({
-      type: MARK_POSITION,
-      payload: { ...args }
-    })
+    const action = { type: MARK_POSITION, payload: { ...args } }
+    socket.emit(MARK_POSITION, action)
+    dispatch(action)
   }
 }
 
 export function restartGame() {
-  return {
-    type: RESTART_GAME,
+  return (dispatch, getState, { socket }) => {
+    const action = { type: RESTART_GAME }
+    socket.emit(RESTART_GAME, action)
+    dispatch(action)
   }
 }
 
