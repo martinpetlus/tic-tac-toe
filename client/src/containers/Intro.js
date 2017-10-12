@@ -7,21 +7,13 @@ import ContentAligner from '../components/ContentAligner'
 import TabButton from '../components/TabButton'
 import Input from '../components/Input'
 import Button from '../components/Button'
+import Dialog from '../components/Dialog'
 import {
   changeGameType,
   joinSessionId,
   newSessionId
 } from '../actions'
 import { NEW, JOIN } from '../constants/GameTypes'
-
-const Wrapper = styled.div`
-  width: 300px;
-  height: 200px;
-  border: 2px solid ${props => props.theme.primaryColor};
-  background-color: ${props => props.theme.secondaryColor};
-  display: flex;
-  flex-direction: column;
-`
 
 const Row = styled.div`
   display: flex;
@@ -89,7 +81,7 @@ class Intro extends Component {
 
     return (
       <ContentAligner>
-        <Wrapper>
+        <Dialog>
           <Row>
             <TabButtonStyled
               selected={type === NEW}
@@ -127,7 +119,7 @@ class Intro extends Component {
                 </RowContent>
             }
           </Row>
-        </Wrapper>
+        </Dialog>
       </ContentAligner>
     )
   }
