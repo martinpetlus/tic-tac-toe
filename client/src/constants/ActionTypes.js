@@ -1,4 +1,5 @@
 export const MARK_POSITION = 'MARK_POSITION'
+export const NEW_GAME = 'NEW_GAME'
 export const RESTART_GAME = 'RESTART_GAME'
 export const CHANGE_NAME = 'CHANGE_NAME'
 export const CHANGE_GAME_TYPE = 'CHANGE_GAME_TYPE'

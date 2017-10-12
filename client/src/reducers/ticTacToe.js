@@ -6,6 +6,7 @@ import checkGameStatus from '../utils/checkGameStatus'
 import {
   MARK_POSITION,
   RESTART_GAME,
+  NEW_GAME,
   JOIN_SESSION_SUCCESS,
   OPPONENT_JOINED
 } from '../constants/ActionTypes'
@@ -48,6 +49,7 @@ export default function ticTacToeReducer(state = initialState, action) {
         status: checkGameStatus(clonedBoard, state.myMark, state.opponentMark)
       }
     }
+    case NEW_GAME:
     case RESTART_GAME:
       return {
         ...state,

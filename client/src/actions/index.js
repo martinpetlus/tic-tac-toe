@@ -1,6 +1,7 @@
 import {
   MARK_POSITION,
   RESTART_GAME,
+  NEW_GAME,
   CHANGE_NAME,
   CHANGE_GAME_TYPE,
   JOIN_SESSION_SUCCESS,
@@ -12,6 +13,14 @@ export function markPosition(args) {
   return (dispatch, getState, { socket }) => {
     const action = { type: MARK_POSITION, payload: { ...args } }
     socket.emit(MARK_POSITION, action)
+    dispatch(action)
+  }
+}
+
+export function newGame() {
+  return (dispatch, getState, { socket }) => {
+    const action = { type: NEW_GAME }
+    socket.emit(NEW_GAME, action)
     dispatch(action)
   }
 }
