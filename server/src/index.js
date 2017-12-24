@@ -17,5 +17,5 @@ io.on('connection', require('./controllers'));
 
 server.listen(3001, () => {
   // eslint-disable-next-line no-console
-  console.log('Example app listening on port 3001!');
+  console.log('TicTacToe app listening on port 3001!');
 });
