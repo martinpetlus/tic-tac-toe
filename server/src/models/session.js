@@ -43,6 +43,9 @@ module.exports.remove = (socket, cb) => {
   cb(null, { opponent });
 };
 
+module.exports.clearActions = socket =>
+  existingSessions.get(socket).clearActions();
+
 module.exports.markPosition = (socket, action) =>
   existingSessions.get(socket).markPosition(action);
 

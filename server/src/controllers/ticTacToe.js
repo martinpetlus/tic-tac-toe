@@ -8,10 +8,12 @@ module.exports = (socket) => {
   });
 
   socket.on(RESTART_GAME, (action) => {
+    Session.clearActions(socket);
     Session.opponent(socket).emit('action', action);
   });
 
   socket.on(NEW_GAME, (action) => {
+    Session.clearActions(socket);
     Session.opponent(socket).emit('action', action);
   });
 };

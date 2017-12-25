@@ -15,6 +15,12 @@ module.exports = class Session {
     return this.initiator;
   }
 
+  clearActions() {
+    Object.keys(this.actions).forEach((key) => {
+      this.actions[key] = [];
+    });
+  }
+
   markPosition(action) {
     this.actions.markPosition.push(action);
   }
