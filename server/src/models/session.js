@@ -13,7 +13,7 @@ module.exports.new = (id, socket) => {
 module.exports.join = (id, socket, cb) => {
   if (!socketBySessionId.has(id)) {
     cb({ message: 'Session doesn\'t exists.' });
-  } else if (existingSessions.has(id)) {
+  } else if (existingSessions.has(socketBySessionId.get(id))) {
     cb({ message: 'Joining to already occupied session.' });
   } else {
     const initiator = socketBySessionId.get(id);
@@ -42,6 +42,9 @@ module.exports.remove = (socket, cb) => {
 
   cb(null, { opponent });
 };
+
+module.exports.markPosition = (socket, action) =>
+  existingSessions.get(socket).markPosition(action);
 
 module.exports.opponent = socket =>
   existingSessions.get(socket).getOpponent(socket);

@@ -3,6 +3,7 @@ const Session = require('../models/session');
 
 module.exports = (socket) => {
   socket.on(MARK_POSITION, (action) => {
+    Session.markPosition(socket, action);
     Session.opponent(socket).emit('action', action);
   });
 

@@ -1,5 +1,8 @@
 module.exports = class Session {
   constructor(initiator, opponent) {
+    this.actions = {
+      markPosition: [],
+    };
     this.initiator = initiator;
     this.opponent = opponent;
   }
@@ -10,5 +13,9 @@ module.exports = class Session {
     }
 
     return this.initiator;
+  }
+
+  markPosition(action) {
+    this.actions.markPosition.push(action);
   }
 };
