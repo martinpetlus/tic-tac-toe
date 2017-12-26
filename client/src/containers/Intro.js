@@ -58,7 +58,7 @@ class Intro extends Component {
   }
 
   changeSessionType() {
-    const { newSessionId, type, newId, id } = this.props
+    const { newSessionId, restoreSessionId, type, newId, id } = this.props
 
     if (id) restoreSessionId(id)
     else if (type === NEW) newSessionId(newId)

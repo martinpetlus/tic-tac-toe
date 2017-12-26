@@ -1,7 +1,7 @@
 const Session = require('../helpers/Session');
 
 // Stores `Session` when somebody creates new game
-const sessionById = new WeakMap();
+const sessionById = new Map();
 
 // Stores `Session` between two connected opponents
 const sessionBySocket = new WeakMap();
@@ -32,20 +32,21 @@ module.exports.join = (id, socket, cb) => {
 
 module.exports.remove = (socket, cb) => {
   let opponent;
-  const session = sessionBySocket.get(socket);
 
-  if (session) {
+  const handleRemove = (session) => {
+    if (!session) return;
+
     opponent = session.getOpponent(socket);
-
     session.removeOpponent(socket);
-    sessionBySocket.delete(socket);
 
     if (session.isEmpty()) {
       sessionById.delete(session.getId());
     }
-  } else {
-    sessionById.delete(socket.newSessionId);
-  }
+  };
+
+  handleRemove(sessionBySocket.get(socket));
+  handleRemove(sessionById.get(socket.newSessionId));
+  sessionBySocket.delete(socket);
 
   cb(null, { opponent });
 };
