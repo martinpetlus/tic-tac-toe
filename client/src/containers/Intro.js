@@ -11,7 +11,8 @@ import Dialog from '../components/Dialog'
 import {
   changeGameType,
   joinSessionId,
-  newSessionId
+  newSessionId,
+  restoreSessionId
 } from '../actions'
 import { NEW, JOIN } from '../constants/GameTypes'
 
@@ -57,9 +58,10 @@ class Intro extends Component {
   }
 
   changeSessionType() {
-    const { newSessionId, type, newId } = this.props
+    const { newSessionId, type, newId, id } = this.props
 
-    if (type === NEW) newSessionId(newId)
+    if (id) restoreSessionId(id)
+    else if (type === NEW) newSessionId(newId)
   }
 
   handleJoinSessionInputChange = (e) => {
@@ -73,7 +75,15 @@ class Intro extends Component {
   }
 
   render() {
-    const { id, type, changeGameType } = this.props
+    const { id, type, changeGameType, disconnected } = this.props
+
+    if (disconnected) {
+      return (
+        <ContentAligner>
+          <Dialog>Opponent disconnected.</Dialog>
+        </ContentAligner>
+      )
+    }
 
     if (id) {
       return this.props.children
@@ -130,6 +140,7 @@ export default connect(
   {
     changeGameType,
     joinSessionId,
-    newSessionId
+    newSessionId,
+    restoreSessionId,
   }
 )(Intro)

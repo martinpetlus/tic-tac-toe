@@ -1,6 +1,7 @@
 const {
   OPPONENT_JOINED,
   OPPONENT_DISCONNECTED,
+  RESTORE_GAME,
 } = require('client/constants/ActionTypes');
 const { NEW, JOIN } = require('client/constants/GameTypes');
 const Session = require('../models/session');
@@ -11,6 +12,12 @@ module.exports = (socket) => {
       if (opponent) {
         opponent.emit('action', { type: OPPONENT_DISCONNECTED });
       }
+    });
+  });
+
+  socket.on(RESTORE_GAME, (id) => {
+    Session.tryRestore(id, () => {
+
     });
   });
 

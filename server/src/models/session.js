@@ -34,13 +34,17 @@ module.exports.remove = (socket, cb) => {
     const session = currentSessions.get(socket);
     opponent = session.getOpponent(socket);
 
+    session.removeSocket(socket);
     currentSessions.delete(socket);
-    currentSessions.delete(opponent);
   }
 
   socketBySessionId.delete(socket.sessionId);
 
   cb(null, { opponent });
+};
+
+module.exports.tryRestore = (id) => {
+
 };
 
 module.exports.clearActions = socket =>

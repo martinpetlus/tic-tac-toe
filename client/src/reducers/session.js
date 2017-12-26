@@ -13,27 +13,38 @@ const initialState = {
   id: localStorage.getItem(SESSION_ID_KEY),
   ready: false,
   type: NEW,
-  newId: uid()
+  newId: uid(),
+  disconnected: false,
 }
 
 export default function sessionReducer(state = initialState, action) {
   switch (action.type) {
     case OPPONENT_JOINED:
-    case JOIN_SESSION_SUCCESS:
+    case JOIN_SESSION_SUCCESS: {
+      const id = action.payload
+
+      localStorage.setItem(SESSION_ID_KEY, id);
+
       return {
         ...state,
-        id: action.payload,
+        id,
         ready: true,
+        disconnected: false,
       }
-    case CHANGE_GAME_TYPE:
+    }
+    case CHANGE_GAME_TYPE: {
+      localStorage.setItem(SESSION_ID_KEY, null);
+
       return {
-        ...state,
+        ...initialState,
+        id: null,
         type: action.payload
       }
+    }
     case OPPONENT_DISCONNECTED:
       return {
         ...state,
-        id: null,
+        disconnected: true,
         ready: false,
       }
     default:

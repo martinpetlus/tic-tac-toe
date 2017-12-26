@@ -5,7 +5,8 @@ import {
   CHANGE_NAME,
   CHANGE_GAME_TYPE,
   JOIN_SESSION_SUCCESS,
-  JOIN_SESSION_FAILURE
+  JOIN_SESSION_FAILURE,
+  RESTORE_SESSION,
 } from '../constants/ActionTypes'
 import { NEW, JOIN } from '../constants/GameTypes'
 
@@ -44,6 +45,12 @@ export function changeGameType(newType) {
   return {
     type: CHANGE_GAME_TYPE,
     payload: newType
+  }
+}
+
+export function restoreSessionId(id) {
+  return (dispatch, getState, { socket }) => {
+    socket.emit(RESTORE_SESSION, id);
   }
 }
 
