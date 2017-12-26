@@ -1,7 +1,8 @@
 const {
   OPPONENT_JOINED,
   OPPONENT_DISCONNECTED,
-  RESTORE_GAME,
+  RESTORE_SESSION,
+  RESTORE_SESSION_SUCCESS,
 } = require('client/constants/ActionTypes');
 const { NEW, JOIN } = require('client/constants/GameTypes');
 const Session = require('../models/session');
@@ -15,9 +16,13 @@ module.exports = (socket) => {
     });
   });
 
-  socket.on(RESTORE_GAME, (id) => {
-    Session.tryRestore(id, () => {
-
+  socket.on(RESTORE_SESSION, (id, cb) => {
+    Session.restore(id, socket, (error, { opponent } = {}) => {
+      if (error) cb({ error });
+      else {
+        cb({});
+        opponent.emit('action', { type: RESTORE_SESSION_SUCCESS, payload: id });
+      }
     });
   });
 
@@ -26,11 +31,11 @@ module.exports = (socket) => {
   });
 
   socket.on(JOIN, (id, cb) => {
-    Session.join(id, socket, (error, { initiator } = {}) => {
+    Session.join(id, socket, (error, { opponent } = {}) => {
       if (error) cb({ error });
       else {
         cb({});
-        initiator.emit('action', { type: OPPONENT_JOINED, payload: id });
+        opponent.emit('action', { type: OPPONENT_JOINED, payload: id });
       }
     });
   });

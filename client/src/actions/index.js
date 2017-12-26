@@ -7,6 +7,8 @@ import {
   JOIN_SESSION_SUCCESS,
   JOIN_SESSION_FAILURE,
   RESTORE_SESSION,
+  RESTORE_SESSION_FAILURE,
+  RESTORE_SESSION_SUCCESS,
 } from '../constants/ActionTypes'
 import { NEW, JOIN } from '../constants/GameTypes'
 
@@ -50,7 +52,19 @@ export function changeGameType(newType) {
 
 export function restoreSessionId(id) {
   return (dispatch, getState, { socket }) => {
-    socket.emit(RESTORE_SESSION, id);
+    socket.emit(RESTORE_SESSION, id, ({ error }) => {
+      if (error) {
+        return dispatch({
+          type: RESTORE_SESSION_FAILURE,
+          error: error.message || 'Something went wrong.'
+        })
+      }
+
+      dispatch({
+        type: RESTORE_SESSION_SUCCESS,
+        payload: id
+      })
+    });
   }
 }
 

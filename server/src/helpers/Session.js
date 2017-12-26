@@ -1,18 +1,39 @@
 module.exports = class Session {
-  constructor(initiator, opponent) {
+  constructor(id, initiator) {
+    this.id = id;
+    this.initiator = initiator;
     this.actions = {
       markPosition: [],
     };
-    this.initiator = initiator;
-    this.opponent = opponent;
+  }
+
+  getId() {
+    return this.id;
   }
 
   getOpponent(socket) {
     if (this.initiator && this.initiator.id === socket.id) {
-      return this.opponent;
+      return this.joiner;
     }
 
     return this.initiator;
+  }
+
+  restoreOpponent(socket) {
+    if (!this.initiator) this.initiator = socket;
+    else if (!this.joiner) this.joiner = socket;
+  }
+
+  setJoiner(socket) {
+    this.joiner = socket;
+  }
+
+  getInitiator() {
+    return this.initiator;
+  }
+
+  isOccupied() {
+    return !!this.initiator && !!this.joiner;
   }
 
   clearActions() {
@@ -25,8 +46,12 @@ module.exports = class Session {
     this.actions.markPosition.push(action);
   }
 
-  removeSocket(socket) {
+  isEmpty() {
+    return !this.initiator && !this.joiner;
+  }
+
+  removeOpponent(socket) {
     if (this.initiator && this.initiator.id === socket.id) delete this.initiator;
-    if (this.opponent && this.opponent.id === socket.id) delete this.opponent;
+    if (this.joiner && this.joiner.id === socket.id) delete this.joiner;
   }
 };
