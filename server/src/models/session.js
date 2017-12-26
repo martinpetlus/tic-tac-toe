@@ -1,6 +1,6 @@
 const Session = require('../helpers/Session');
 
-const existingSessions = new WeakMap();
+const currentSessions = new WeakMap();
 const socketBySessionId = new Map();
 
 module.exports.new = (id, socket) => {
@@ -13,15 +13,15 @@ module.exports.new = (id, socket) => {
 module.exports.join = (id, socket, cb) => {
   if (!socketBySessionId.has(id)) {
     cb({ message: 'Session doesn\'t exists.' });
-  } else if (existingSessions.has(socketBySessionId.get(id))) {
+  } else if (currentSessions.has(socketBySessionId.get(id))) {
     cb({ message: 'Joining to already occupied session.' });
   } else {
     const initiator = socketBySessionId.get(id);
 
     const session = new Session(initiator, socket);
 
-    existingSessions.set(initiator, session);
-    existingSessions.set(socket, session);
+    currentSessions.set(initiator, session);
+    currentSessions.set(socket, session);
 
     cb(null, { initiator });
   }
@@ -30,12 +30,12 @@ module.exports.join = (id, socket, cb) => {
 module.exports.remove = (socket, cb) => {
   let opponent;
 
-  if (existingSessions.has(socket)) {
-    const session = existingSessions.get(socket);
+  if (currentSessions.has(socket)) {
+    const session = currentSessions.get(socket);
     opponent = session.getOpponent(socket);
 
-    existingSessions.delete(socket);
-    existingSessions.delete(opponent);
+    currentSessions.delete(socket);
+    currentSessions.delete(opponent);
   }
 
   socketBySessionId.delete(socket.sessionId);
@@ -44,10 +44,10 @@ module.exports.remove = (socket, cb) => {
 };
 
 module.exports.clearActions = socket =>
-  existingSessions.get(socket).clearActions();
+  currentSessions.get(socket).clearActions();
 
 module.exports.markPosition = (socket, action) =>
-  existingSessions.get(socket).markPosition(action);
+  currentSessions.get(socket).markPosition(action);
 
 module.exports.opponent = socket =>
-  existingSessions.get(socket).getOpponent(socket);
+  currentSessions.get(socket).getOpponent(socket);
