@@ -5,5 +5,5 @@ import rootReducer from '../reducers'
 
 export default socket => createStore(
   rootReducer,
-  applyMiddleware(thunk.withExtraArgument({ socket }),)
+  applyMiddleware(thunk.withExtraArgument({ socket }))
 )
