@@ -52,13 +52,15 @@ export function changeGameType(newType) {
 
 export function restoreSessionId(id) {
   return (dispatch, getState, { socket }) => {
-    socket.emit(RESTORE_SESSION, id, ({ error }) => {
+    socket.emit(RESTORE_SESSION, id, ({ error, actions }) => {
       if (error) {
         return dispatch({
           type: RESTORE_SESSION_FAILURE,
           error: error.message || 'Something went wrong.'
         })
       }
+
+      actions.markPosition.forEach(action => dispatch(action));
 
       dispatch({
         type: RESTORE_SESSION_SUCCESS,

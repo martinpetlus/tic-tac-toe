@@ -20,7 +20,7 @@ module.exports = (socket) => {
     Session.restore(id, socket, (error, { opponent } = {}) => {
       if (error) cb({ error });
       else {
-        cb({});
+        cb({ actions: Session.getActions(socket) });
         opponent.emit('action', { type: RESTORE_SESSION_SUCCESS, payload: id });
       }
     });

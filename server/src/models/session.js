@@ -36,7 +36,8 @@ module.exports.remove = (socket, cb) => {
   const handleRemove = (session) => {
     if (!session) return;
 
-    opponent = session.getOpponent(socket);
+    // Only one session can be occupied by socket
+    opponent = session.getOpponent(socket) || opponent;
     session.removeOpponent(socket);
 
     if (session.isEmpty()) {
@@ -61,6 +62,9 @@ module.exports.restore = (id, socket, cb) => {
     cb(null, { opponent: session.getOpponent(socket) });
   }
 };
+
+module.exports.getActions = socket =>
+  sessionBySocket.get(socket).getActions();
 
 module.exports.clearActions = socket =>
   sessionBySocket.get(socket).clearActions();

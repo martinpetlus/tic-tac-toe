@@ -7,6 +7,10 @@ module.exports = class Session {
     };
   }
 
+  getActions() {
+    return this.actions;
+  }
+
   getId() {
     return this.id;
   }
