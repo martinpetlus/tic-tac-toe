@@ -21,7 +21,10 @@ module.exports = (socket) => {
     Session.restore(id, socket, (error, { opponent } = {}) => {
       if (error) cb({ error });
       else {
-        cb({ actions: Session.getActions(socket) });
+        cb({
+          initiator: socket === Session.getInitiator(socket),
+          actions: Session.getActions(socket),
+        });
         opponent.emit('action', restoreSession(id));
       }
     });

@@ -74,3 +74,6 @@ module.exports.markPosition = (socket, action) =>
 
 module.exports.opponent = socket =>
   sessionBySocket.get(socket).getOpponent(socket);
+
+module.exports.getInitiator = socket =>
+  sessionBySocket.get(socket).getInitiator();

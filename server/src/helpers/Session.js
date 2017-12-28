@@ -56,6 +56,6 @@ module.exports = class Session {
 
   removeOpponent(socket) {
     if (this.initiator && this.initiator.id === socket.id) delete this.initiator;
-    if (this.joiner && this.joiner.id === socket.id) delete this.joiner;
+    else if (this.joiner && this.joiner.id === socket.id) delete this.joiner;
   }
 };

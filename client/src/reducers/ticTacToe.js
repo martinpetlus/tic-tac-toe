@@ -8,7 +8,8 @@ import {
   RESTART_GAME,
   NEW_GAME,
   JOIN_SESSION_SUCCESS,
-  OPPONENT_JOINED
+  OPPONENT_JOINED,
+  RESTORE_SESSION_SUCCESS
 } from '../constants/ActionTypes'
 
 const SIZE = 3
@@ -30,6 +31,17 @@ export default function ticTacToeReducer(state = initialState, action) {
         ...state,
         myTurn: true
       }
+    case RESTORE_SESSION_SUCCESS: {
+      if (action.restorer && !action.initiator) {
+        return {
+          ...state,
+          myMark: O,
+          opponentMark: X
+        }
+      }
+
+      return state;
+    }
     case JOIN_SESSION_SUCCESS:
       return {
         ...state,

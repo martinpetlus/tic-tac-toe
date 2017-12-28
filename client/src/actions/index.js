@@ -52,7 +52,7 @@ export function changeGameType(newType) {
 
 export function restoreSessionId(id) {
   return (dispatch, getState, { socket }) => {
-    socket.emit(RESTORE_SESSION, id, ({ error, actions }) => {
+    socket.emit(RESTORE_SESSION, id, ({ error, actions, initiator }) => {
       if (error) {
         return dispatch({
           type: RESTORE_SESSION_FAILURE,
@@ -64,7 +64,9 @@ export function restoreSessionId(id) {
 
       dispatch({
         type: RESTORE_SESSION_SUCCESS,
-        payload: id
+        payload: id,
+        restorer: true,
+        initiator
       })
     });
   }
