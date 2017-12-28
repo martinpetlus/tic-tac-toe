@@ -60,14 +60,14 @@ export function restoreSessionId(id) {
         })
       }
 
-      actions.markPosition.forEach(action => dispatch(action));
-
       dispatch({
         type: RESTORE_SESSION_SUCCESS,
         payload: id,
         restorer: true,
         initiator
       })
+
+      actions.markPosition.forEach(action => dispatch(action));
     });
   }
 }
