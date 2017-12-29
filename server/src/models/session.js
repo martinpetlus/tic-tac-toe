@@ -7,6 +7,8 @@ const sessionById = new Map();
 const sessionBySocket = new WeakMap();
 
 module.exports.new = (id, socket) => {
+  if (socket.newSessionId) return;
+
   // eslint-disable-next-line no-param-reassign
   socket.newSessionId = id;
 

@@ -54,14 +54,18 @@ class Intro extends Component {
   }
 
   componentDidMount() {
-    this.changeSessionType()
-  }
-
-  changeSessionType() {
     const { newSessionId, restoreSessionId, type, newId, id } = this.props
 
     if (id) restoreSessionId(id)
     else if (type === NEW) newSessionId(newId)
+  }
+
+  componentDidUpdate(prevProps) {
+    const { newId, id, type, newSessionId } = this.props
+
+    if (prevProps.id !== id && !id && type === NEW) {
+      newSessionId(newId);
+    }
   }
 
   handleJoinSessionInputChange = (e) => {
