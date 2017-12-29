@@ -37,11 +37,14 @@ export default function sessionReducer(state = initialState, action) {
         disconnected: false,
       }
     }
-    case RESTORE_SESSION_FAILURE:
+    case RESTORE_SESSION_FAILURE: {
+      localStorage.removeItem(SESSION_ID_KEY);
+
       return {
         ...initialState,
         id: null
       };
+    }
     case CHANGE_GAME_TYPE: {
       localStorage.removeItem(SESSION_ID_KEY);
 
