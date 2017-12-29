@@ -1,6 +1,6 @@
 import {
   OPPONENT_DISCONNECTED,
-  RESTORE_SESSION_SUCCESS,
+  OPPONENT_RECONNECTED,
   OPPONENT_JOINED,
 } from 'client/constants/ActionTypes';
 
@@ -8,8 +8,8 @@ export const opponentDisconnected = () => ({
   type: OPPONENT_DISCONNECTED,
 });
 
-export const restoreSession = id => ({
-  type: RESTORE_SESSION_SUCCESS,
+export const opponentReconnected = id => ({
+  type: OPPONENT_RECONNECTED,
   payload: id,
 });
 

@@ -2,7 +2,7 @@ import { RESTORE_SESSION } from 'client/constants/ActionTypes';
 import { NEW, JOIN } from 'client/constants/GameTypes';
 import {
   opponentDisconnected,
-  restoreSession,
+  opponentReconnected,
   opponentJoined,
 } from '../actions';
 
@@ -25,7 +25,7 @@ module.exports = (socket) => {
           initiator: socket === Session.getInitiator(socket),
           actions: Session.getActions(socket),
         });
-        opponent.emit('action', restoreSession(id));
+        opponent.emit('action', opponentReconnected(id));
       }
     });
   });

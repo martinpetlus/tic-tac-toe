@@ -21,9 +21,7 @@ export default function nameReducer(state = initialState, action) {
       return newName
     }
     case RESTORE_SESSION_SUCCESS: {
-      if (action.restorer && !action.initiator) {
-        return getPlayer2Name();
-      }
+      if (!action.initiator) return getPlayer2Name();
       return state;
     }
     case JOIN_SESSION_SUCCESS:

@@ -32,7 +32,7 @@ export default function ticTacToeReducer(state = initialState, action) {
         myTurn: true
       }
     case RESTORE_SESSION_SUCCESS: {
-      if (action.restorer && !action.initiator) {
+      if (!action.initiator) {
         return {
           ...state,
           myMark: O,

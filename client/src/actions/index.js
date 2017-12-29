@@ -63,7 +63,6 @@ export function restoreSessionId(id) {
       dispatch({
         type: RESTORE_SESSION_SUCCESS,
         payload: id,
-        restorer: true,
         initiator
       })
 
