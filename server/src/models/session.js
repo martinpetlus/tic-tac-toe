@@ -49,6 +49,7 @@ module.exports.remove = (socket, cb) => {
 
   handleRemove(sessionBySocket.get(socket));
   handleRemove(sessionById.get(socket.newSessionId));
+
   sessionBySocket.delete(socket);
 
   cb(null, { opponent });
