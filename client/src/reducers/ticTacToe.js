@@ -11,6 +11,7 @@ import {
   OPPONENT_JOINED,
   RESTORE_SESSION_SUCCESS
 } from '../constants/ActionTypes'
+import scoreReducer from './score'
 
 const SIZE = 3
 
@@ -19,7 +20,8 @@ const initialState = {
   opponentMark: O,
   myTurn: false,
   board: createEmptyBoard(SIZE),
-  status: undefined
+  status: undefined,
+  score: scoreReducer(undefined, undefined, undefined)
 }
 
 export default function ticTacToeReducer(state = initialState, action) {
@@ -53,12 +55,14 @@ export default function ticTacToeReducer(state = initialState, action) {
       const clonedBoard = cloneDeep(state.board)
 
       clonedBoard[row][col].mark = mark
+      const status = checkGameStatus(clonedBoard, state.myMark, state.opponentMark)
 
       return {
         ...state,
         myTurn: mark !== state.myMark,
         board: clonedBoard,
-        status: checkGameStatus(clonedBoard, state.myMark, state.opponentMark)
+        status,
+        score: scoreReducer(state.score, action, status)
       }
     }
     case NEW_GAME:
