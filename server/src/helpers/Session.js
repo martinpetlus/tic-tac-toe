@@ -36,6 +36,10 @@ module.exports = class Session {
     return this.initiator;
   }
 
+  isInitiator(socket) {
+    return !!this.initiator && this.initiator.id === socket.id;
+  }
+
   isOccupied() {
     return !!this.initiator && !!this.joiner;
   }

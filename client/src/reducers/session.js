@@ -5,7 +5,8 @@ import {
   OPPONENT_RECONNECTED,
   OPPONENT_DISCONNECTED,
   RESTORE_SESSION_SUCCESS,
-  RESTORE_SESSION_FAILURE
+  RESTORE_SESSION_FAILURE,
+  LEAVE_GAME
 } from '../constants/ActionTypes'
 import { NEW } from '../constants/GameTypes'
 import uid from 'uid'
@@ -37,6 +38,7 @@ export default function sessionReducer(state = initialState, action) {
         disconnected: false,
       }
     }
+    case LEAVE_GAME:
     case RESTORE_SESSION_FAILURE: {
       localStorage.removeItem(SESSION_ID_KEY);
 

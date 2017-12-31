@@ -22,7 +22,7 @@ module.exports = (socket) => {
       if (error) cb({ error });
       else {
         cb({
-          initiator: socket === Session.getInitiator(socket),
+          initiator: Session.isInitiator(socket),
           actions: Session.getActions(socket),
         });
         opponent.emit('action', opponentReconnected(id));

@@ -9,7 +9,7 @@ import GameEnd from './containers/GameEnd'
 import Header from './components/Header'
 import Button from './components/Button'
 import EditableName from './components/EditableName'
-import { restartGame, changeName } from './actions'
+import { restartGame, changeName, leaveGame } from './actions'
 import Score from './containers/Score';
 
 injectGlobal`
@@ -55,7 +55,12 @@ class App extends Component {
       <ThemeProvider theme={theme}>
         <Wrapper>
           <Header>
-            {session.ready && <Button onClick={restartGame}>Restart</Button>}
+            {session.ready &&
+              <div>
+                <Button onClick={restartGame}>Restart</Button>
+                <Button onClick={leaveGame}>Leave</Button>
+              </div>
+            }
             {session.ready && <Score />}
             {session.ready &&
               <EditableName

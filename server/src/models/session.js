@@ -55,6 +55,18 @@ module.exports.remove = (socket, cb) => {
   cb(null, { opponent });
 };
 
+module.exports.leave = (socket, cb) => {
+  const session = sessionBySocket.get(socket);
+  const opponent = session.getOpponent(socket);
+
+  session.removeOpponent(session.isInitiator(socket) ? opponent : socket);
+
+  sessionBySocket.delete(socket);
+  sessionBySocket.delete(opponent);
+
+  cb(null, { opponent });
+};
+
 module.exports.restore = (id, socket, cb) => {
   if (!sessionById.has(id)) {
     cb({ message: 'Session doesn\'t exists anymore.' });
@@ -78,5 +90,5 @@ module.exports.markPosition = (socket, action) =>
 module.exports.opponent = socket =>
   sessionBySocket.get(socket).getOpponent(socket);
 
-module.exports.getInitiator = socket =>
-  sessionBySocket.get(socket).getInitiator();
+module.exports.isInitiator = socket =>
+  sessionBySocket.get(socket).isInitiator(socket);

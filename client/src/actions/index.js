@@ -9,6 +9,7 @@ import {
   RESTORE_SESSION,
   RESTORE_SESSION_FAILURE,
   RESTORE_SESSION_SUCCESS,
+  LEAVE_GAME
 } from '../constants/ActionTypes'
 import { NEW, JOIN } from '../constants/GameTypes'
 
@@ -32,6 +33,14 @@ export function restartGame() {
   return (dispatch, getState, { socket }) => {
     const action = { type: RESTART_GAME }
     socket.emit(RESTART_GAME, action)
+    dispatch(action)
+  }
+}
+
+export function leaveGame() {
+  return (dispatch, getState, { socket }) => {
+    const action = { type: LEAVE_GAME }
+    socket.emit(LEAVE_GAME, action)
     dispatch(action)
   }
 }
