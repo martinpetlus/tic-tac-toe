@@ -49,7 +49,7 @@ const theme = {
 
 class App extends Component {
   render() {
-    const { restartGame, changeName, name, session } = this.props
+    const { restartGame, changeName, leaveGame, name, session } = this.props
 
     return (
       <ThemeProvider theme={theme}>
@@ -82,5 +82,5 @@ class App extends Component {
 
 export default connect(
   state => state,
-  dispatch => bindActionCreators({ changeName, restartGame }, dispatch)
+  { changeName, restartGame, leaveGame }
 )(App)

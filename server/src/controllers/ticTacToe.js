@@ -19,7 +19,7 @@ module.exports = (socket) => {
 
   socket.on(LEAVE_GAME, (action) => {
     Session.clearActions(socket);
-    Session.leave(socket, ({ opponent }) => {
+    Session.leave(socket, (error, { opponent }) => {
       opponent.emit('action', action);
     });
   });
