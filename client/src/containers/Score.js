@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import Text from '../components/Text';
 
 const Score = (props) => (
-  <Text>{props.victories}:{props.losses}</Text>
+  <Text>{props.win}:{props.loss}</Text>
 )
 
 export default connect(state => state.ticTacToe.score)(Score)
