@@ -84,8 +84,8 @@ module.exports.getActions = socket =>
 module.exports.clearActions = socket =>
   sessionBySocket.get(socket).clearActions();
 
-module.exports.markPosition = (socket, action) =>
-  sessionBySocket.get(socket).markPosition(action);
+module.exports.saveAction = (socket, action) =>
+  sessionBySocket.get(socket).saveAction(action);
 
 module.exports.opponent = socket =>
   sessionBySocket.get(socket).getOpponent(socket);

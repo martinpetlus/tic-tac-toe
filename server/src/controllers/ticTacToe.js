@@ -8,7 +8,7 @@ const Session = require('../models/session');
 
 module.exports = (socket) => {
   socket.on(MARK_POSITION, (action) => {
-    Session.markPosition(socket, action);
+    Session.saveAction(socket, action);
     Session.opponent(socket).emit('action', action);
   });
 
@@ -25,7 +25,7 @@ module.exports = (socket) => {
   });
 
   socket.on(NEW_GAME, (action) => {
-    Session.clearActions(socket);
+    Session.saveAction(socket, action);
     Session.opponent(socket).emit('action', action);
   });
 };

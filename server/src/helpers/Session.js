@@ -2,9 +2,7 @@ module.exports = class Session {
   constructor(id, initiator) {
     this.id = id;
     this.initiator = initiator;
-    this.actions = {
-      markPosition: [],
-    };
+    this.actions = [];
   }
 
   getActions() {
@@ -45,13 +43,11 @@ module.exports = class Session {
   }
 
   clearActions() {
-    Object.keys(this.actions).forEach((key) => {
-      this.actions[key] = [];
-    });
+    this.actions = [];
   }
 
-  markPosition(action) {
-    this.actions.markPosition.push(action);
+  saveAction(action) {
+    this.actions.push(action);
   }
 
   isEmpty() {

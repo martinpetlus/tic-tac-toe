@@ -75,7 +75,7 @@ export function restoreSessionId(id) {
         initiator
       })
 
-      actions.markPosition.forEach(action => dispatch(action));
+      actions.forEach(action => dispatch(action));
     });
   }
 }

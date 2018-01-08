@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import styled, { injectGlobal, ThemeProvider } from 'styled-components'
 import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
 
 import TicTacToe from './containers/TicTacToe'
 import Intro from './containers/Intro'
