@@ -21,7 +21,7 @@ const initialState = {
   myTurn: false,
   board: createEmptyBoard(SIZE),
   status: undefined,
-  score: scoreReducer(undefined, undefined, undefined)
+  score: scoreReducer(undefined, {}, undefined)
 }
 
 export default function ticTacToeReducer(state = initialState, action) {
