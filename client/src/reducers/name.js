@@ -9,9 +9,9 @@ const NAME_KEY = 'name_key'
 const DEFAULT_PLAYER_1 = 'Player 1'
 const DEFAULT_PLAYER_2 = 'Player 2'
 
-const initialState = localStorage.getItem(NAME_KEY) || DEFAULT_PLAYER_1
+const getMyName = defaultName => localStorage.getItem(NAME_KEY) || defaultName
 
-const getPlayer2Name = () => localStorage.getItem(NAME_KEY) || DEFAULT_PLAYER_2;
+const initialState = getMyName(DEFAULT_PLAYER_1)
 
 export default function nameReducer(state = initialState, action) {
   switch (action.type) {
@@ -21,11 +21,11 @@ export default function nameReducer(state = initialState, action) {
       return newName
     }
     case RESTORE_SESSION_SUCCESS: {
-      if (!action.initiator) return getPlayer2Name();
+      if (!action.initiator) return getMyName(DEFAULT_PLAYER_2);
       return state;
     }
     case JOIN_SESSION_SUCCESS:
-      return getPlayer2Name();
+      return getMyName(DEFAULT_PLAYER_2);
     default:
       return state
   }
