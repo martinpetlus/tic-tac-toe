@@ -36,7 +36,9 @@ export default function namesReducer(state = initialState, action) {
     }
     case RESTORE_SESSION_SUCCESS:
     case JOIN_SESSION_SUCCESS: {
-      if (action.type === RESTORE_SESSION_SUCCESS && action.initiator) {
+      const { type, initiator } = action
+
+      if (type === RESTORE_SESSION_SUCCESS && initiator) {
         return state;
       }
 

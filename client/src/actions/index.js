@@ -46,12 +46,16 @@ export function leaveGame() {
   }
 }
 
+const emitName = (socket, name) => {
+  socket.emit(CHANGE_OPPONENT_NAME, {
+    type: CHANGE_OPPONENT_NAME,
+    payload: name
+  })
+}
+
 export function changeName(newName) {
   return (dispatch, getState, { socket }) => {
-    socket.emit(CHANGE_OPPONENT_NAME, {
-      type: CHANGE_OPPONENT_NAME,
-      payload: newName
-    })
+    emitName(socket, newName)
 
     dispatch({
       type: CHANGE_MY_NAME,
@@ -102,6 +106,8 @@ export function joinSessionId(id) {
         type: JOIN_SESSION_SUCCESS,
         payload: id
       })
+
+      emitName(socket, getState().names.myName)
     })
   }
 }
