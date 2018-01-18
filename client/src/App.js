@@ -63,7 +63,7 @@ class App extends Component {
             {session.ready && <Score />}
             {session.ready &&
               <EditableName
-                name={name}
+                name={name.myName}
                 onNameChange={changeName}
               />
             }

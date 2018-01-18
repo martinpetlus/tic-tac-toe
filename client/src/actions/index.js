@@ -9,7 +9,8 @@ import {
   RESTORE_SESSION,
   RESTORE_SESSION_FAILURE,
   RESTORE_SESSION_SUCCESS,
-  LEAVE_GAME
+  LEAVE_GAME,
+  CHANGE_OPPONENT_NAME
 } from '../constants/ActionTypes'
 import { NEW, JOIN } from '../constants/GameTypes'
 
@@ -46,9 +47,16 @@ export function leaveGame() {
 }
 
 export function changeName(newName) {
-  return {
-    type: CHANGE_NAME,
-    payload: newName
+  return (dispatch, getState, { socket }) => {
+    socket.emit(CHANGE_OPPONENT_NAME, {
+      type: CHANGE_OPPONENT_NAME,
+      payload: newName
+    })
+
+    dispatch({
+      type: CHANGE_NAME,
+      payload: newName
+    })
   }
 }
 
