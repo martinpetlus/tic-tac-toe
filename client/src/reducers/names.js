@@ -1,5 +1,5 @@
 import {
-  CHANGE_NAME,
+  CHANGE_MY_NAME,
   JOIN_SESSION_SUCCESS,
   RESTORE_SESSION_SUCCESS,
   CHANGE_OPPONENT_NAME
@@ -26,7 +26,7 @@ export default function namesReducer(state = initialState, action) {
         opponentName: action.payload,
         receivedOpponentName: action.payload
       }
-    case CHANGE_NAME: {
+    case CHANGE_MY_NAME: {
       const newMyName = action.payload
       localStorage.setItem(NAME_KEY, newMyName)
       return {

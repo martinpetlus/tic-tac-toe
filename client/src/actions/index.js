@@ -2,7 +2,7 @@ import {
   MARK_POSITION,
   RESTART_GAME,
   NEW_GAME,
-  CHANGE_NAME,
+  CHANGE_MY_NAME,
   CHANGE_GAME_TYPE,
   JOIN_SESSION_SUCCESS,
   JOIN_SESSION_FAILURE,
@@ -54,7 +54,7 @@ export function changeName(newName) {
     })
 
     dispatch({
-      type: CHANGE_NAME,
+      type: CHANGE_MY_NAME,
       payload: newName
     })
   }
