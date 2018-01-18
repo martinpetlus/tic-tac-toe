@@ -2,12 +2,12 @@ import { combineReducers } from 'redux'
 
 import session from './session'
 import ticTacToe from './ticTacToe'
-import name from './name'
+import names from './names'
 
 const rootReducer = combineReducers({
   session,
   ticTacToe,
-  name
+  names
 })
 
 export default rootReducer;

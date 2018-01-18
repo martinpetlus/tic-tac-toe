@@ -48,7 +48,7 @@ const theme = {
 
 class App extends Component {
   render() {
-    const { restartGame, changeName, leaveGame, name, session } = this.props
+    const { restartGame, changeName, leaveGame, names, session } = this.props
 
     return (
       <ThemeProvider theme={theme}>
@@ -63,7 +63,7 @@ class App extends Component {
             {session.ready && <Score />}
             {session.ready &&
               <EditableName
-                name={name.myName}
+                name={names.myName}
                 onNameChange={changeName}
               />
             }

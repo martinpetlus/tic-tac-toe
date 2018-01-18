@@ -18,7 +18,7 @@ const initialState = {
   receivedOpponentName: null
 }
 
-export default function nameReducer(state = initialState, action) {
+export default function namesReducer(state = initialState, action) {
   switch (action.type) {
     case CHANGE_OPPONENT_NAME:
       return {
