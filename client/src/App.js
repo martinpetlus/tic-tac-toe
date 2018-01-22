@@ -9,7 +9,7 @@ import Header from './components/Header'
 import Button from './components/Button'
 import Text from './components/Text'
 import EditableName from './components/EditableName'
-import { restartGame, changeName, leaveGame } from './actions'
+import { restartGame, changeName, leaveGame, sendMyName } from './actions'
 import Score from './containers/Score';
 
 injectGlobal`
@@ -48,12 +48,17 @@ const theme = {
 }
 
 class App extends Component {
+  componentDidUpdate(prevProps) {
+    const { session: { id }, sendMyName } = this.props
+    if (!prevProps.session.id && id) sendMyName()
+  }
+
   render() {
     const {
       restartGame,
       changeName,
       leaveGame,
-      names: { myName, opponentName},
+      names: { myName, opponentName },
       session
     } = this.props
 
@@ -89,5 +94,5 @@ class App extends Component {
 
 export default connect(
   state => state,
-  { changeName, restartGame, leaveGame }
+  { changeName, restartGame, leaveGame, sendMyName }
 )(App)

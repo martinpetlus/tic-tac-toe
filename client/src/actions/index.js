@@ -53,6 +53,12 @@ const emitMyName = (socket, name) => {
   })
 }
 
+export function sendMyName() {
+  return (dispatch, getState, { socket }) => {
+    emitMyName(socket, getState().names.myName)
+  }
+}
+
 export function changeName(newName) {
   return (dispatch, getState, { socket }) => {
     emitMyName(socket, newName)
