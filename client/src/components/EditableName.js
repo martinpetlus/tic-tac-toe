@@ -3,7 +3,9 @@ import React, { Component } from 'react'
 import InlineTextWrapper from './InlineTextWrapper'
 import Input from './Input'
 
-const NameWrapper = InlineTextWrapper.withComponent('div')
+const NameWrapper = InlineTextWrapper.withComponent('div').extend`
+  display: inline-flex;
+`
 
 export default class EditableName extends Component {
   state = {
