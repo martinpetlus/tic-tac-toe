@@ -63,6 +63,7 @@ class Intro extends Component {
   componentDidUpdate(prevProps) {
     const { newId, id, type, newSessionId } = this.props
 
+    // If id has changed to `null`, create session on server
     if (prevProps.id !== id && !id && type === NEW) {
       newSessionId(newId);
     }
