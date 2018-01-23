@@ -2,7 +2,7 @@ import { combineReducers } from 'redux'
 
 import session from './session'
 import ticTacToe from './ticTacToe'
-import names from './names'
+import names, * as fromNames from './names'
 
 const rootReducer = combineReducers({
   session,
@@ -11,3 +11,5 @@ const rootReducer = combineReducers({
 })
 
 export default rootReducer;
+
+export const getMyName = state => fromNames.getMyName(state.names)

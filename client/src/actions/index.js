@@ -13,6 +13,7 @@ import {
   CHANGE_OPPONENT_NAME
 } from '../constants/ActionTypes'
 import { NEW, JOIN } from '../constants/GameTypes'
+import * as fromRoot from '../reducers'
 
 export function markPosition(args) {
   return (dispatch, getState, { socket }) => {
@@ -55,7 +56,7 @@ const emitMyName = (socket, name) => {
 
 export function sendMyName() {
   return (dispatch, getState, { socket }) => {
-    emitMyName(socket, getState().names.myName)
+    emitMyName(socket, fromRoot.getMyName(getState()))
   }
 }
 
@@ -113,7 +114,7 @@ export function joinSessionId(id) {
         payload: id
       })
 
-      emitMyName(socket, getState().names.myName)
+      emitMyName(socket, fromRoot.getMyName(getState()))
     })
   }
 }
