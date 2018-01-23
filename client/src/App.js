@@ -49,8 +49,13 @@ const theme = {
 
 class App extends Component {
   componentDidUpdate(prevProps) {
-    const { session: { id }, sendMyName } = this.props
-    if (!prevProps.session.id && id) sendMyName()
+    const { session: { id, disconnected }, sendMyName } = this.props
+    if (
+      (!prevProps.session.id && id) ||
+      (prevProps.session.disconnected && !disconnected)
+    ) {
+      sendMyName()
+    }
   }
 
   render() {
