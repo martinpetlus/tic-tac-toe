@@ -34,15 +34,18 @@ export default function ticTacToeReducer(state = initialState, action) {
         myTurn: true
       }
     case RESTORE_SESSION_SUCCESS: {
-      if (!action.initiator) {
+      if (action.initiator) {
+        return {
+          ...state,
+          myTurn: true
+        }
+      } else {
         return {
           ...state,
           myMark: O,
           opponentMark: X
         }
       }
-
-      return state;
     }
     case JOIN_SESSION_SUCCESS:
       return {
@@ -51,18 +54,19 @@ export default function ticTacToeReducer(state = initialState, action) {
         opponentMark: X
       }
     case MARK_POSITION: {
+      const { myMark, opponentMark, board, score } = state
       const { row, col, mark } = payload
-      const clonedBoard = cloneDeep(state.board)
+      const clonedBoard = cloneDeep(board)
 
       clonedBoard[row][col].mark = mark
-      const status = checkGameStatus(clonedBoard, state.myMark, state.opponentMark)
+      const status = checkGameStatus(clonedBoard, myMark, opponentMark)
 
       return {
         ...state,
-        myTurn: mark !== state.myMark,
+        myTurn: mark !== myMark,
         board: clonedBoard,
         status,
-        score: scoreReducer(state.score, action, status)
+        score: scoreReducer(score, action, status)
       }
     }
     case NEW_GAME:
