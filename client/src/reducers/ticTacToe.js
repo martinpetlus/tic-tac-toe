@@ -9,7 +9,7 @@ import {
   NEW_GAME,
   JOIN_SESSION_SUCCESS,
   OPPONENT_JOINED,
-  RESTORE_SESSION_SUCCESS
+  RESTORE_SESSION_SUCCESS,
 } from '../constants/ActionTypes'
 import scoreReducer from './score'
 
@@ -21,7 +21,7 @@ const initialState = {
   myTurn: false,
   board: createEmptyBoard(SIZE),
   status: undefined,
-  score: scoreReducer(undefined, {}, undefined)
+  score: scoreReducer(undefined, {}, undefined),
 }
 
 export default function ticTacToeReducer(state = initialState, action) {
@@ -31,19 +31,19 @@ export default function ticTacToeReducer(state = initialState, action) {
     case OPPONENT_JOINED:
       return {
         ...state,
-        myTurn: true
+        myTurn: true,
       }
     case RESTORE_SESSION_SUCCESS: {
       if (action.initiator) {
         return {
           ...state,
-          myTurn: true
+          myTurn: true,
         }
       } else {
         return {
           ...state,
           myMark: O,
-          opponentMark: X
+          opponentMark: X,
         }
       }
     }
@@ -51,7 +51,7 @@ export default function ticTacToeReducer(state = initialState, action) {
       return {
         ...state,
         myMark: O,
-        opponentMark: X
+        opponentMark: X,
       }
     case MARK_POSITION: {
       const { myMark, opponentMark, board, score } = state
@@ -66,7 +66,7 @@ export default function ticTacToeReducer(state = initialState, action) {
         myTurn: mark !== myMark,
         board: clonedBoard,
         status,
-        score: scoreReducer(score, action, status)
+        score: scoreReducer(score, action, status),
       }
     }
     case NEW_GAME:
@@ -75,7 +75,7 @@ export default function ticTacToeReducer(state = initialState, action) {
         ...state,
         status: undefined,
         myTurn: state.myMark === X,
-        board: createEmptyBoard(SIZE)
+        board: createEmptyBoard(SIZE),
       }
     default:
       return state

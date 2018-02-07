@@ -6,7 +6,7 @@ import {
   OPPONENT_DISCONNECTED,
   RESTORE_SESSION_SUCCESS,
   RESTORE_SESSION_FAILURE,
-  LEAVE_GAME
+  LEAVE_GAME,
 } from '../constants/ActionTypes'
 import { NEW } from '../constants/GameTypes'
 import uid from 'uid'
@@ -29,7 +29,7 @@ export default function sessionReducer(state = initialState, action) {
     case JOIN_SESSION_SUCCESS: {
       const id = action.payload
 
-      localStorage.setItem(SESSION_ID_KEY, id);
+      localStorage.setItem(SESSION_ID_KEY, id)
 
       return {
         ...state,
@@ -40,20 +40,20 @@ export default function sessionReducer(state = initialState, action) {
     }
     case LEAVE_GAME:
     case RESTORE_SESSION_FAILURE: {
-      localStorage.removeItem(SESSION_ID_KEY);
-
-      return {
-        ...initialState,
-        id: null
-      };
-    }
-    case CHANGE_GAME_TYPE: {
-      localStorage.removeItem(SESSION_ID_KEY);
+      localStorage.removeItem(SESSION_ID_KEY)
 
       return {
         ...initialState,
         id: null,
-        type: action.payload
+      }
+    }
+    case CHANGE_GAME_TYPE: {
+      localStorage.removeItem(SESSION_ID_KEY)
+
+      return {
+        ...initialState,
+        id: null,
+        type: action.payload,
       }
     }
     case OPPONENT_DISCONNECTED:

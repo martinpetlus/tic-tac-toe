@@ -18,29 +18,25 @@ const DialogStyled = Dialog.extend`
 `
 
 const ButtonStyled = Button.extend`
-  width: 130px
+  width: 130px;
 `
 
 class GameEnd extends Component {
   render() {
     const { status, newGame } = this.props
 
-    if (status) return (
-      <ContentAligner>
-        <DialogStyled>
-          <InlineTextWrapperStyled>
-            {status}
-          </InlineTextWrapperStyled>
-          <ButtonStyled onClick={newGame}>New Game</ButtonStyled>
-        </DialogStyled>
-      </ContentAligner>
-    )
+    if (status)
+      return (
+        <ContentAligner>
+          <DialogStyled>
+            <InlineTextWrapperStyled>{status}</InlineTextWrapperStyled>
+            <ButtonStyled onClick={newGame}>New Game</ButtonStyled>
+          </DialogStyled>
+        </ContentAligner>
+      )
 
     return this.props.children
   }
 }
 
-export default connect(
-  state => state.ticTacToe,
-  { newGame }
-)(GameEnd)
+export default connect(state => state.ticTacToe, { newGame })(GameEnd)

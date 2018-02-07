@@ -7,9 +7,9 @@ import names, * as fromNames from './names'
 const rootReducer = combineReducers({
   session,
   ticTacToe,
-  names
+  names,
 })
 
-export default rootReducer;
+export default rootReducer
 
 export const getMyName = state => fromNames.getMyName(state.names)

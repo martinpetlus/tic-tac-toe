@@ -6,7 +6,7 @@ import Board from '../components/Board'
 import ContentAligner from '../components/ContentAligner'
 import { markPosition } from '../actions'
 
-const TicTacToe = (props) => (
+const TicTacToe = props => (
   <ContentAligner>
     <Board {...props} />
   </ContentAligner>
@@ -17,9 +17,12 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({
-    onPositionClick: markPosition
-  }, dispatch)
+  return bindActionCreators(
+    {
+      onPositionClick: markPosition,
+    },
+    dispatch
+  )
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(TicTacToe)

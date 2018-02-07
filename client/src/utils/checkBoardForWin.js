@@ -3,9 +3,7 @@ function getRows(board) {
 }
 
 function getColumns(board) {
-  return board.map((_, col) =>
-    board.map((_, row) => board[row][col])
-  )
+  return board.map((_, col) => board.map((_, row) => board[row][col]))
 }
 
 function getDiagonals(board) {
@@ -17,7 +15,11 @@ function getDiagonals(board) {
     left.push(board[i][i])
   }
 
-  for (let col = size - 1, row = 0; col >= 0 && row < size; col -= 1, row += 1) {
+  for (
+    let col = size - 1, row = 0;
+    col >= 0 && row < size;
+    col -= 1, row += 1
+  ) {
     right.push(board[row][col])
   }
 
@@ -26,20 +28,18 @@ function getDiagonals(board) {
 
 export default function checkBoardForWin(board, targetMark) {
   function checkPositionsForWin(positions) {
-    return positions.every(position => (
-      position.mark &&
-      positions[0].mark === targetMark &&
-      positions[0].mark === position.mark
-    ))
+    return positions.every(
+      position =>
+        position.mark &&
+        positions[0].mark === targetMark &&
+        positions[0].mark === position.mark
+    )
   }
 
   const winInRow = getRows(board).some(checkPositionsForWin)
   const winInColumn = !winInRow && getColumns(board).some(checkPositionsForWin)
-  const winInDiagonal = (
-    !winInRow &&
-    !winInColumn &&
-    getDiagonals(board).some(checkPositionsForWin)
-  )
+  const winInDiagonal =
+    !winInRow && !winInColumn && getDiagonals(board).some(checkPositionsForWin)
 
   return winInRow || winInColumn || winInDiagonal
 }

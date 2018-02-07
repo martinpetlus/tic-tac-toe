@@ -10,7 +10,7 @@ import Button from './components/Button'
 import Text from './components/Text'
 import EditableName from './components/EditableName'
 import { restartGame, changeName, leaveGame, sendMyName } from './actions'
-import Score from './containers/Score';
+import Score from './containers/Score'
 
 injectGlobal`
   html, body {
@@ -44,7 +44,7 @@ const theme = {
   secondaryColor: 'lemonchiffon',
   hoverColor: 'white',
   textColor: 'mediumvioletred',
-  fontSize: '1em'
+  fontSize: '1em',
 }
 
 class App extends Component {
@@ -64,7 +64,7 @@ class App extends Component {
       changeName,
       leaveGame,
       names: { myName, opponentName },
-      session
+      session,
     } = this.props
 
     return (
@@ -72,18 +72,12 @@ class App extends Component {
         <Wrapper>
           <Header>
             {session.ready && <Button onClick={restartGame}>Restart</Button>}
-            {session.ready &&
+            {session.ready && (
               <div>
-                <EditableName
-                  name={myName}
-                  onNameChange={changeName}
-                />
-                {' '}
-                <Score />
-                {' '}
-                <Text>{opponentName}</Text>
+                <EditableName name={myName} onNameChange={changeName} />{' '}
+                <Score /> <Text>{opponentName}</Text>
               </div>
-            }
+            )}
             {session.ready && <Button onClick={leaveGame}>Leave</Button>}
           </Header>
           <Intro>
@@ -97,7 +91,9 @@ class App extends Component {
   }
 }
 
-export default connect(
-  state => state,
-  { changeName, restartGame, leaveGame, sendMyName }
-)(App)
+export default connect(state => state, {
+  changeName,
+  restartGame,
+  leaveGame,
+  sendMyName,
+})(App)

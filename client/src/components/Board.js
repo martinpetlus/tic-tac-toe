@@ -24,8 +24,8 @@ export default function Board({ board, myMark, myTurn, onPositionClick }) {
               {...position}
               greyed={position.mark && position.mark !== myMark}
               onClick={
-                (myTurn && !position.mark)
-                  ? (() => onPositionClick({ row: i, col: j, mark: myMark }))
+                myTurn && !position.mark
+                  ? () => onPositionClick({ row: i, col: j, mark: myMark })
                   : undefined
               }
             />

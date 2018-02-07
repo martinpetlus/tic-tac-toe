@@ -14,8 +14,6 @@ const Container = styled.div`
   justify-content: space-between;
 `
 
-const Header = ({ children }) => (
-  <Container>{children}</Container>
-)
+const Header = ({ children }) => <Container>{children}</Container>
 
 export default Header

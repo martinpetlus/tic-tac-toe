@@ -9,13 +9,12 @@ const NameWrapper = InlineTextWrapper.withComponent('div').extend`
 
 export default class EditableName extends Component {
   state = {
-    focused: false
+    focused: false,
   }
 
   handleNameClick = () => {
-    this.setState(
-      { focused: true, name: this.props.name },
-      () => this.input.focus()
+    this.setState({ focused: true, name: this.props.name }, () =>
+      this.input.focus()
     )
   }
 
@@ -29,7 +28,7 @@ export default class EditableName extends Component {
     }
   }
 
-  handleInputKeyDown = (event) => {
+  handleInputKeyDown = event => {
     if (event.key === 'Enter') {
       event.preventDefault()
       this.handleInputBlur()
@@ -47,13 +46,17 @@ export default class EditableName extends Component {
           type="text"
           value={this.state.name}
           onChange={this.handleInputChange}
-          innerRef={input => this.input = input}
+          innerRef={input => (this.input = input)}
           onBlur={this.handleInputBlur}
           onKeyDown={this.handleInputKeyDown}
         />
       )
     }
 
-    return <NameWrapper onClick={this.handleNameClick}>{this.props.name}</NameWrapper>
+    return (
+      <NameWrapper onClick={this.handleNameClick}>
+        {this.props.name}
+      </NameWrapper>
+    )
   }
 }

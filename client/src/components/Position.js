@@ -15,8 +15,8 @@ const Position = styled(({ mark, onClick, className }) => (
   line-height: 50px;
   font-size: 40px;
   text-align: center;
-  color: ${props => props.greyed ? 'burlywood' : props.theme.textColor};
-  font-family: monospace, "sans-serif";
+  color: ${props => (props.greyed ? 'burlywood' : props.theme.textColor)};
+  font-family: monospace, 'sans-serif';
 `
 
 export default Position

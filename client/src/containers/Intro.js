@@ -12,7 +12,7 @@ import {
   changeGameType,
   joinSessionId,
   newSessionId,
-  restoreSessionId
+  restoreSessionId,
 } from '../actions'
 import { NEW, JOIN } from '../constants/GameTypes'
 
@@ -50,7 +50,7 @@ const InlineTextWrapperStyled = InlineTextWrapper.extend`
 
 class Intro extends Component {
   state = {
-    joinSessionId: ''
+    joinSessionId: '',
   }
 
   componentDidMount() {
@@ -65,11 +65,11 @@ class Intro extends Component {
 
     // If id has changed to `null`, create session on server
     if (prevProps.id !== id && !id && type === NEW) {
-      newSessionId(newId);
+      newSessionId(newId)
     }
   }
 
-  handleJoinSessionInputChange = (e) => {
+  handleJoinSessionInputChange = e => {
     this.setState({ joinSessionId: e.target.value })
   }
 
@@ -112,27 +112,28 @@ class Intro extends Component {
             </TabButtonStyled>
           </Row>
           <Row>
-            {type === NEW
-              ? <RowContent>
-                  <InlineTextWrapperStyled>
-                    {this.props.newId}
-                  </InlineTextWrapperStyled>
-                  <InlineTextWrapperStyled>
-                    Waiting for opponent...
-                  </InlineTextWrapperStyled>
-                </RowContent>
-              : <RowContent>
-                  <InputStyled
-                    type="text"
-                    value={this.state.joinSessionId}
-                    onChange={this.handleJoinSessionInputChange}
-                    placeholder="Enter session identifier"
-                  />
-                  <ButtonStyled onClick={this.handleJoinSessionClick}>
-                    Join game
-                  </ButtonStyled>
-                </RowContent>
-            }
+            {type === NEW ? (
+              <RowContent>
+                <InlineTextWrapperStyled>
+                  {this.props.newId}
+                </InlineTextWrapperStyled>
+                <InlineTextWrapperStyled>
+                  Waiting for opponent...
+                </InlineTextWrapperStyled>
+              </RowContent>
+            ) : (
+              <RowContent>
+                <InputStyled
+                  type="text"
+                  value={this.state.joinSessionId}
+                  onChange={this.handleJoinSessionInputChange}
+                  placeholder="Enter session identifier"
+                />
+                <ButtonStyled onClick={this.handleJoinSessionClick}>
+                  Join game
+                </ButtonStyled>
+              </RowContent>
+            )}
           </Row>
         </Dialog>
       </ContentAligner>
@@ -140,12 +141,9 @@ class Intro extends Component {
   }
 }
 
-export default connect(
-  state => state.session,
-  {
-    changeGameType,
-    joinSessionId,
-    newSessionId,
-    restoreSessionId,
-  }
-)(Intro)
+export default connect(state => state.session, {
+  changeGameType,
+  joinSessionId,
+  newSessionId,
+  restoreSessionId,
+})(Intro)

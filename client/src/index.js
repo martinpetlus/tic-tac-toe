@@ -2,9 +2,9 @@ import React from 'react'
 import { render } from 'react-dom'
 import { Provider } from 'react-redux'
 
-import io from 'socket.io-client';
+import io from 'socket.io-client'
 
-import App from './App';
+import App from './App'
 import registerServiceWorker from './registerServiceWorker'
 import configureStore from './store/configureStore'
 

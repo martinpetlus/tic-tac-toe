@@ -1,4 +1,4 @@
-import Text from './Text';
+import Text from './Text'
 
 const InlineTextWrapper = Text.withComponent('div').extend`
   padding: 0.25em 1em;

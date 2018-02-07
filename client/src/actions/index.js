@@ -10,7 +10,7 @@ import {
   RESTORE_SESSION_FAILURE,
   RESTORE_SESSION_SUCCESS,
   LEAVE_GAME,
-  CHANGE_OPPONENT_NAME
+  CHANGE_OPPONENT_NAME,
 } from '../constants/ActionTypes'
 import { NEW, JOIN } from '../constants/GameTypes'
 import { getMyName } from '../reducers'
@@ -50,7 +50,7 @@ export function leaveGame() {
 const emitMyName = (socket, name) => {
   socket.emit(CHANGE_OPPONENT_NAME, {
     type: CHANGE_OPPONENT_NAME,
-    payload: name
+    payload: name,
   })
 }
 
@@ -66,7 +66,7 @@ export function changeName(newName) {
 
     dispatch({
       type: CHANGE_MY_NAME,
-      payload: newName
+      payload: newName,
     })
   }
 }
@@ -74,7 +74,7 @@ export function changeName(newName) {
 export function changeGameType(newType) {
   return {
     type: CHANGE_GAME_TYPE,
-    payload: newType
+    payload: newType,
   }
 }
 
@@ -84,18 +84,18 @@ export function restoreSessionId(id) {
       if (error) {
         return dispatch({
           type: RESTORE_SESSION_FAILURE,
-          error: error.message || 'Something went wrong.'
+          error: error.message || 'Something went wrong.',
         })
       }
 
       dispatch({
         type: RESTORE_SESSION_SUCCESS,
         payload: id,
-        initiator
+        initiator,
       })
 
-      actions.forEach(action => dispatch(action));
-    });
+      actions.forEach(action => dispatch(action))
+    })
   }
 }
 
@@ -105,13 +105,13 @@ export function joinSessionId(id) {
       if (error) {
         return dispatch({
           type: JOIN_SESSION_FAILURE,
-          error: error.message || 'Something went wrong.'
+          error: error.message || 'Something went wrong.',
         })
       }
 
       dispatch({
         type: JOIN_SESSION_SUCCESS,
-        payload: id
+        payload: id,
       })
 
       emitMyName(socket, getMyName(getState()))
